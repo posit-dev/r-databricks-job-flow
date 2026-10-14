@@ -10,7 +10,7 @@ output_dir <- "/Volumes/jb-demos/r_flow_demo/files"   # any UC Volume you can wr
 nc <- new_cluster(
   num_workers    = 0,
   spark_version  = "17.3.x-scala2.13",
-  node_type_id   = "Standard_D8ds_v4",
+  node_type_id   = "Standard_D4ds_v4",          # 4 cores / 16 GB
   spark_conf     = list("spark.master" = "local[*]",
                         "spark.databricks.cluster.profile" = "singleNode"),
   spark_env_vars = list(OPENBLAS_NUM_THREADS = "1"),
@@ -28,7 +28,7 @@ pkgs   <- libraries(lib_cran("pscl"))
 job <- db_jobs_create(
   name         = "r-job-flow-demo",
   git_source   = git_source(repo, git_provider = "github", reference = branch),
-  job_clusters = list(list(job_cluster_key = "shared", new_cluster = nc)),
+  job_clusters = list(shared = nc),            # name = job_cluster_key
   tasks = job_tasks(
     job_task(
       task_key        = "prep",
