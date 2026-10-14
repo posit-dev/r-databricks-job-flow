@@ -13,7 +13,7 @@ nc <- new_cluster(
   node_type_id   = "Standard_D4ds_v4",          # 4 cores / 16 GB
   spark_conf     = list("spark.master" = "local[*]",
                         "spark.databricks.cluster.profile" = "singleNode"),
-  spark_env_vars = list(OPENBLAS_NUM_THREADS = "1"),
+  spark_env_vars = list(OMP_NUM_THREADS = "1", OPENBLAS_NUM_THREADS = "1"),  # one BLAS thread per mclapply fork
   cloud_attrs    = azure_attributes(availability = "ON_DEMAND"),
   custom_tags    = list(ResourceClass = "SingleNode", project = "r-flow-demo")
 )

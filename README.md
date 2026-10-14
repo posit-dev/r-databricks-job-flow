@@ -22,4 +22,4 @@ Notes
 - Job entry points are R notebooks: `.R` files that start with `# Databricks notebook source`.
   A plain `.R` file can't be a task by itself; point `jobs/run_script.R` at it instead.
 - R requires classic compute in **Dedicated** access mode.
-- `parallel::mclapply` on the driver: set `OPENBLAS_NUM_THREADS=1` to avoid BLAS oversubscription.
+- `parallel::mclapply` on the driver: set `OMP_NUM_THREADS=1` and `OPENBLAS_NUM_THREADS=1` (cluster env vars) to avoid BLAS thread oversubscription.
